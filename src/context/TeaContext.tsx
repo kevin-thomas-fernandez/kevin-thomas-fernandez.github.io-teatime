@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
 import { TeaNote, WeeklyQuiz } from '../types';
 import { useAuth } from './AuthContext';
 
@@ -14,10 +14,33 @@ type TeaAction =
   | { type: 'ADD_QUIZ'; payload: WeeklyQuiz }
   | { type: 'UPDATE_QUIZ'; payload: WeeklyQuiz };
 
-const initialState: TeaState = {
-  teaNotes: [],
-  weeklyQuizzes: []
+// Load initial state from localStorage - shared between all users
+const loadInitialState = (): TeaState => {
+  try {
+    const savedTeaNotes = localStorage.getItem('shared-tea-notes');
+    const savedQuizzes = localStorage.getItem('shared-tea-quizzes');
+    
+    return {
+      teaNotes: savedTeaNotes ? JSON.parse(savedTeaNotes).map((note: any) => ({
+        ...note,
+        timestamp: new Date(note.timestamp),
+        reminderTime: note.reminderTime ? new Date(note.reminderTime) : undefined
+      })) : [],
+      weeklyQuizzes: savedQuizzes ? JSON.parse(savedQuizzes).map((quiz: any) => ({
+        ...quiz,
+        weekStart: new Date(quiz.weekStart)
+      })) : []
+    };
+  } catch (error) {
+    console.error('Error loading tea data from localStorage:', error);
+    return {
+      teaNotes: [],
+      weeklyQuizzes: []
+    };
+  }
 };
+
+const initialState: TeaState = loadInitialState();
 
 function teaReducer(state: TeaState, action: TeaAction): TeaState {
   switch (action.type) {
@@ -66,6 +89,16 @@ export function TeaProvider({ children }: { children: ReactNode }) {
   const { state: authState } = useAuth();
 
   const currentUser = authState.user?.role || 'gf';
+
+  // Save to localStorage whenever state changes - shared between all users
+  useEffect(() => {
+    try {
+      localStorage.setItem('shared-tea-notes', JSON.stringify(state.teaNotes));
+      localStorage.setItem('shared-tea-quizzes', JSON.stringify(state.weeklyQuizzes));
+    } catch (error) {
+      console.error('Error saving tea data to localStorage:', error);
+    }
+  }, [state.teaNotes, state.weeklyQuizzes]);
 
   return (
     <TeaContext.Provider value={{ state, dispatch, currentUser }}>
