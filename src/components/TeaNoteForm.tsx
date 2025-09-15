@@ -5,7 +5,7 @@ import { useTea } from '../context/TeaContext';
 import { EmojiSelector } from './EmojiSelector';
 
 export function TeaNoteForm() {
-  const { state, dispatch, currentUser } = useTea();
+  const { dispatch, currentUser } = useTea();
   const [content, setContent] = useState('');
   const [selectedEmoji, setSelectedEmoji] = useState<TeaEmoji>('heart');
   const [reminderTime, setReminderTime] = useState('');

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTea } from '../context/TeaContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -22,14 +21,14 @@ export function UserSwitcher() {
           width: '12px',
           height: '12px',
           borderRadius: '50%',
-          background: currentUser === 'me' ? 'var(--pastel-pink)' : 'var(--pastel-blue)'
+          background: currentUser === 'gf' ? 'var(--pastel-pink)' : 'var(--pastel-blue)'
         }} />
         <span style={{ 
           fontSize: '14px', 
           fontWeight: '600',
           color: 'var(--text-dark)'
         }}>
-          {currentUser === 'me' ? '👩 You' : '👨 Boyfriend'} ({authState.user?.displayName})
+          {currentUser === 'gf' ? '👩 You' : '👨 Boyfriend'} ({authState.user?.displayName})
         </span>
       </div>
       

@@ -58,14 +58,14 @@ function teaReducer(state: TeaState, action: TeaAction): TeaState {
 const TeaContext = createContext<{
   state: TeaState;
   dispatch: React.Dispatch<TeaAction>;
-  currentUser: 'me' | 'bf';
+  currentUser: 'gf' | 'bf';
 } | null>(null);
 
 export function TeaProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(teaReducer, initialState);
   const { state: authState } = useAuth();
 
-  const currentUser = authState.user?.role || 'me';
+  const currentUser = authState.user?.role || 'gf';
 
   return (
     <TeaContext.Provider value={{ state, dispatch, currentUser }}>

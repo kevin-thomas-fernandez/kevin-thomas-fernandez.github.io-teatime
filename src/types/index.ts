@@ -7,7 +7,7 @@ export interface TeaNote {
   connections: Connection[];
   emoji: TeaEmoji;
   isCompleted: boolean;
-  author: 'me' | 'bf';
+  author: 'gf' | 'bf';
 }
 
 export interface FollowUpQuestion {
@@ -46,7 +46,7 @@ export interface User {
   id: string;
   username: string;
   displayName: string;
-  role: 'me' | 'bf';
+  role: 'gf' | 'bf';
 }
 
 export interface AuthState {

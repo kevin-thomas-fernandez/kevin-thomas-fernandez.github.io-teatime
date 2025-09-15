@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { format, startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { TeaNote, WeeklyQuiz, QuizQuestion } from '../types';

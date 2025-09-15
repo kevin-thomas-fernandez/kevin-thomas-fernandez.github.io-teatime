@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns';
-import { TeaNote, FollowUpQuestion } from '../types';
+import { TeaNote } from '../types';
 import { useTea } from '../context/TeaContext';
 
 interface TeaMessageProps {
@@ -15,13 +15,13 @@ const emojiMap: Record<string, string> = {
   shock: '😱'
 };
 
-const emojiColors: Record<string, string> = {
-  angry: 'var(--pastel-pink)',
-  star: 'var(--pastel-yellow)',
-  heart: 'var(--pastel-pink)',
-  laugh: 'var(--pastel-yellow)',
-  shock: 'var(--pastel-purple)'
-};
+// const emojiColors: Record<string, string> = {
+//   angry: 'var(--pastel-pink)',
+//   star: 'var(--pastel-yellow)',
+//   heart: 'var(--pastel-pink)',
+//   laugh: 'var(--pastel-yellow)',
+//   shock: 'var(--pastel-purple)'
+// };
 
 export function TeaMessage({ teaNote }: TeaMessageProps) {
   const { dispatch } = useTea();
@@ -48,7 +48,7 @@ export function TeaMessage({ teaNote }: TeaMessageProps) {
     setShowFollowUps(false);
   };
 
-  const isMyMessage = teaNote.author === 'me';
+  const isMyMessage = teaNote.author === 'gf';
   const messageStyle = {
     alignSelf: isMyMessage ? 'flex-end' : 'flex-start',
     maxWidth: '70%',

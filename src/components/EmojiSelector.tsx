@@ -1,4 +1,3 @@
-import React from 'react';
 import { TeaEmoji } from '../types';
 
 interface EmojiSelectorProps {
